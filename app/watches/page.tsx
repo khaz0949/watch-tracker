@@ -1,27 +1,15 @@
 import Breadcrumbs from "@/components/Breadcrumbs";
 import WatchesList from "@/components/WatchesList";
+import { getWatchesFromDb } from "@/lib/watches";
 
 export const dynamic = "force-dynamic";
-
-async function getWatches() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/watches`,
-      { next: { revalidate: 30 } }
-    );
-    if (!res.ok) return [];
-    return res.json();
-  } catch {
-    return [];
-  }
-}
 
 export default async function WatchesListPage({
   searchParams,
 }: {
   searchParams: Promise<{ brand?: string }>;
 }) {
-  const watches = await getWatches();
+  const watches = await getWatchesFromDb();
   const params = await searchParams;
   const initialBrand = params?.brand ?? "";
 

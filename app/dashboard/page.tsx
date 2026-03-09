@@ -7,33 +7,9 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import WatchCard from "@/components/WatchCard";
 import ResalePerformanceChart from "@/components/ResalePerformanceChart";
 import { getBrandLogoUrl, BRAND_LIST } from "@/lib/brands";
-
-async function getDashboard() {
-  try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const res = await fetch(`${base}/api/dashboard`, {
-      next: { revalidate: 30 },
-      headers: { "Cache-Control": "no-cache" },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
-
-async function getWatches() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/watches`,
-      { next: { revalidate: 30 } }
-    );
-    if (!res.ok) return [];
-    return res.json();
-  } catch {
-    return [];
-  }
-}
+import { getDashboardData } from "@/lib/dashboard-data";
+import { getWatchesFromDb } from "@/lib/watches";
+import type { PerformanceItem } from "@/components/ResalePerformanceChart";
 
 function groupWatchesByBrand(watches: { id: string; brand: string; [key: string]: unknown }[]) {
   const byBrand: Record<string, typeof watches> = {};
@@ -52,7 +28,7 @@ function groupWatchesByBrand(watches: { id: string; brand: string; [key: string]
 }
 
 export default async function DashboardPage() {
-  const [data, watches] = await Promise.all([getDashboard(), getWatches()]);
+  const [data, watches] = await Promise.all([getDashboardData(), getWatchesFromDb()]);
 
   const totalWatches = data?.totalWatches ?? watches?.length ?? 0;
   const recentCount = data?.recentPrices?.length ?? 0;
@@ -61,10 +37,8 @@ export default async function DashboardPage() {
   const retailVsChrono = data?.retailVsChrono24 ?? [];
   const dataSource = data?.dataSource ?? "benchmark";
   const performanceMetric = data?.performanceMetric ?? "yoy";
-  const asOf =
-    data?.recentPrices?.[0]?.recordedAt != null
-      ? formatDate(data.recentPrices[0].recordedAt)
-      : null;
+  const firstPrice = data?.recentPrices?.[0] as { recordedAt?: string } | undefined;
+  const asOf = firstPrice?.recordedAt != null ? formatDate(firstPrice.recordedAt) : null;
 
   const byBrand = groupWatchesByBrand(watches ?? []);
 
@@ -136,7 +110,7 @@ export default async function DashboardPage() {
         {topForChart.length > 0 ? (
           <div className="mt-6">
             <ResalePerformanceChart
-              data={topForChart}
+              data={topForChart as unknown as PerformanceItem[]}
               variant="best"
               metricLabel={performanceMetric === "yoy" ? "Avg YoY %" : "Chrono24 vs retail %"}
             />
@@ -160,7 +134,7 @@ export default async function DashboardPage() {
         {worstForChart.length > 0 ? (
           <div className="mt-6">
             <ResalePerformanceChart
-              data={worstForChart}
+              data={worstForChart as unknown as PerformanceItem[]}
               variant="worst"
               metricLabel={performanceMetric === "yoy" ? "Avg YoY %" : "Chrono24 vs retail %"}
             />
@@ -183,7 +157,9 @@ export default async function DashboardPage() {
           </p>
           {best.length > 0 ? (
             <ul className="mt-4 space-y-2">
-              {best.map(({ watch, yoyPercent, hasLiveData }: { watch: { id: string; name: string; brand: string; reference?: string | null }; yoyPercent: number; hasLiveData?: boolean }) => (
+              {best.map((item) => {
+                const watch = item.watch as { id: string; name: string; brand: string; reference?: string | null };
+                return (
                 <li key={watch.id}>
                   <Link
                     href={`/watches/${watch.id}`}
@@ -201,13 +177,14 @@ export default async function DashboardPage() {
                       {watch.name}
                       {watch.reference ? ` · ${watch.reference}` : ""}
                     </span>
-                    {hasLiveData && (
+                    {item.hasLiveData && (
                       <span className="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-800">Live</span>
                     )}
-                    <span className="shrink-0 text-emerald-500 font-medium">+{yoyPercent.toFixed(1)}% avg YoY</span>
+                    <span className="shrink-0 text-emerald-500 font-medium">+{item.yoyPercent.toFixed(1)}% avg YoY</span>
                   </Link>
                 </li>
-              ))}
+              );
+            })}
             </ul>
           ) : (
             <p className="mt-4 rounded-lg bg-[hsl(var(--muted))]/20 p-4 text-sm text-[hsl(var(--muted-foreground))]">
@@ -226,7 +203,9 @@ export default async function DashboardPage() {
           </p>
           {worst.length > 0 ? (
             <ul className="mt-4 space-y-2">
-              {worst.map(({ watch, yoyPercent, hasLiveData }: { watch: { id: string; name: string; brand: string; reference?: string | null }; yoyPercent: number; hasLiveData?: boolean }) => (
+              {worst.map((item) => {
+                const watch = item.watch as { id: string; name: string; brand: string; reference?: string | null };
+                return (
                 <li key={watch.id}>
                   <Link
                     href={`/watches/${watch.id}`}
@@ -244,13 +223,14 @@ export default async function DashboardPage() {
                       {watch.name}
                       {watch.reference ? ` · ${watch.reference}` : ""}
                     </span>
-                    {hasLiveData && (
+                    {item.hasLiveData && (
                       <span className="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-800">Live</span>
                     )}
-                    <span className="shrink-0 text-red-400 font-medium">{yoyPercent.toFixed(1)}% avg YoY</span>
+                    <span className="shrink-0 text-red-400 font-medium">{item.yoyPercent.toFixed(1)}% avg YoY</span>
                   </Link>
                 </li>
-              ))}
+              );
+            })}
             </ul>
           ) : (
             <p className="mt-4 rounded-lg bg-[hsl(var(--muted))]/20 p-4 text-sm text-[hsl(var(--muted-foreground))]">
@@ -270,20 +250,9 @@ export default async function DashboardPage() {
         </p>
         {retailVsChrono.length > 0 ? (
           <ul className="mt-4 space-y-2">
-            {retailVsChrono.map(
-              ({
-                watch,
-                retailPrice,
-                chrono24Price,
-                premiumOrDiscountPercent,
-                hasLiveData,
-              }: {
-                watch: { id: string; name: string; brand: string };
-                retailPrice: number;
-                chrono24Price: number;
-                premiumOrDiscountPercent: number;
-                hasLiveData?: boolean;
-              }) => (
+            {retailVsChrono.map((item) => {
+                const watch = item.watch as { id: string; name: string; brand: string };
+                return (
                 <li key={watch.id}>
                   <Link
                     href={`/watches/${watch.id}`}
@@ -298,22 +267,22 @@ export default async function DashboardPage() {
                       referrerPolicy="no-referrer"
                     />
                     <span className="min-w-0 flex-1 font-medium truncate">{watch.name}</span>
-                    {hasLiveData && (
+                    {item.hasLiveData && (
                       <span className="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-800">Live</span>
                     )}
                     <span className="text-[hsl(var(--muted-foreground))]">
-                      Retail {formatPrice(retailPrice)} → Chrono24 {formatPrice(chrono24Price)}
+                      Retail {formatPrice(item.retailPrice)} → Chrono24 {formatPrice(item.chrono24Price)}
                     </span>
                     <span
-                      className={`shrink-0 font-medium ${premiumOrDiscountPercent >= 0 ? "text-emerald-500" : "text-red-400"}`}
+                      className={`shrink-0 font-medium ${item.premiumOrDiscountPercent >= 0 ? "text-emerald-500" : "text-red-400"}`}
                     >
-                      {premiumOrDiscountPercent >= 0 ? "+" : ""}
-                      {premiumOrDiscountPercent.toFixed(0)}%
+                      {item.premiumOrDiscountPercent >= 0 ? "+" : ""}
+                      {item.premiumOrDiscountPercent.toFixed(0)}%
                     </span>
                   </Link>
                 </li>
-              )
-            )}
+              );
+            })}
           </ul>
         ) : (
           <p className="mt-4 rounded-lg bg-[hsl(var(--muted))]/20 p-4 text-sm text-[hsl(var(--muted-foreground))]">

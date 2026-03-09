@@ -8,19 +8,7 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { getBrandLogoUrl } from "@/lib/brands";
 import { getOfficialModelUrl } from "@/lib/official-model-urls";
-
-async function getWatch(id: string) {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/watches/${id}`,
-      { next: { revalidate: 30 } }
-    );
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
+import { getWatchFromDb } from "@/lib/watches";
 
 function buildChartData(prices: { recordedAt: string; source: string; price: number }[]) {
   const byYear: Record<string, { retailer?: number; aftermarket?: number }> = {};
@@ -41,10 +29,11 @@ export default async function WatchDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const data = await getWatch(id);
+  const data = await getWatchFromDb(id);
   if (!data?.watch) notFound();
 
-  const { watch, prices, events, hasLiveData } = data;
+  const { prices, events, hasLiveData } = data;
+  const watch = data.watch as { id: string; name: string; brand: string; reference?: string | null; msrp?: number | null; launchDate?: string | null; imageUrl?: string | null };
   const chartData = buildChartData(prices || []);
 
   const aftermarketPrices = (prices || [])
@@ -208,7 +197,7 @@ export default async function WatchDetailPage({
             <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6">
               <h2 className="text-lg font-semibold">Retail</h2>
               <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
-                {latestRetail.retailerName || "Latest"}
+                {(latestRetail as { retailerName?: string }).retailerName || "Latest"}
               </p>
               <p className="mt-2 text-xl font-semibold">
                 {formatPrice(latestRetail.price)}
@@ -223,29 +212,23 @@ export default async function WatchDetailPage({
             <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6">
               <h2 className="text-lg font-semibold">Launches & events</h2>
               <ul className="mt-3 space-y-2">
-                {events.map(
-                  (
-                    e: {
-                      id: string;
-                      eventType: string;
-                      date: string;
-                      note: string | null;
-                    }
-                  ) => (
-                    <li key={e.id} className="text-sm">
-                      <span className="font-medium capitalize">{e.eventType}</span>
+                {events.map((e) => {
+                  const ev = e as { id: string; eventType: string; date: string; note: string | null };
+                  return (
+                    <li key={ev.id} className="text-sm">
+                      <span className="font-medium capitalize">{ev.eventType}</span>
                       <span className="text-[hsl(var(--muted-foreground))]">
                         {" "}
-                        · {formatDate(e.date)}
+                        · {formatDate(ev.date)}
                       </span>
-                      {e.note && (
+                      {ev.note && (
                         <p className="mt-0.5 text-[hsl(var(--muted-foreground))]">
-                          {e.note}
+                          {ev.note}
                         </p>
                       )}
                     </li>
-                  )
-                )}
+                  );
+                })}
               </ul>
             </div>
           )}
@@ -259,31 +242,26 @@ export default async function WatchDetailPage({
         </p>
         {prices && prices.length > 0 ? (
           <ul className="mt-4 space-y-2">
-            {prices.slice(0, 10).map(
-              (p: {
-                id: string;
-                source: string;
-                retailerName: string | null;
-                price: number;
-                recordedAt: string;
-              }) => (
+            {prices.slice(0, 10).map((p) => {
+              const entry = p as { id: string; source: string; retailerName: string | null; price: number; recordedAt: string };
+              return (
                 <li
-                  key={p.id}
+                  key={entry.id}
                   className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-[hsl(var(--muted))]/30 px-3 py-2 text-sm"
                 >
-                  <span className="capitalize">{p.source}</span>
-                  {p.retailerName && (
+                  <span className="capitalize">{entry.source}</span>
+                  {entry.retailerName && (
                     <span className="text-[hsl(var(--muted-foreground))]">
-                      {p.retailerName}
+                      {entry.retailerName}
                     </span>
                   )}
-                  <span className="font-medium">{formatPrice(p.price)}</span>
+                  <span className="font-medium">{formatPrice(entry.price)}</span>
                   <span className="text-[hsl(var(--muted-foreground))]">
-                    {formatDate(p.recordedAt)}
+                    {formatDate(entry.recordedAt)}
                   </span>
                 </li>
-              )
-            )}
+              );
+            })}
           </ul>
         ) : (
           <p className="mt-4 rounded-lg bg-[hsl(var(--muted))]/20 p-4 text-sm text-[hsl(var(--muted-foreground))]">
