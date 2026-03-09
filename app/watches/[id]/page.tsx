@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { formatPrice, formatDate, percentChange } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 import PriceChart from "@/components/PriceChart";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";

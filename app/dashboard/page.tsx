@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Watch, TrendingUp, TrendingDown, Calendar, BarChart3 } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 import { formatPrice, formatDate } from "@/lib/utils";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import WatchCard from "@/components/WatchCard";

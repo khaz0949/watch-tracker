@@ -31,19 +31,32 @@ if (__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$g
 }
 const __TURBOPACK__default__export__ = fontData;
 }}),
-"[next]/internal/font/google/geist_mono_68a01160.module.css [app-client] (css module)": ((__turbopack_context__) => {
+"[next]/internal/font/google/geist_mono_68a01160.module.css [app-client] (css module)": (() => {{
 
-var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, t: require } = __turbopack_context__;
-{
-__turbopack_export_value__({
-  "className": "geist_mono_68a01160-module__YLcDdW__className",
-  "variable": "geist_mono_68a01160-module__YLcDdW__variable",
-});
+throw new Error("An error occurred while generating the chunk item [next]/internal/font/google/geist_mono_68a01160.module.css [app-client] (css module)\n\nCaused by:\n- creating new process\n- node process exited before we could connect to it with exit status: 1\n\nDebug info:\n- An error occurred while generating the chunk item [next]/internal/font/google/geist_mono_68a01160.module.css [app-client] (css module)\n- Execution of *EcmascriptChunkItemContent::module_factory failed\n- Execution of <ModuleChunkItem as EcmascriptChunkItem>::content failed\n- Execution of ModuleCssAsset::classes failed\n- Execution of *process_css_with_placeholder failed\n- Execution of parse_css failed\n- Execution of <PostCssTransformedAsset as Asset>::content failed\n- Execution of PostCssTransformedAsset::process failed\n- creating new process\n- node process exited before we could connect to it with exit status: 1\n  Process output:\n  \n  Process error output:\n  node:internal/modules/cjs/loader:1459\n    throw err;\n    ^\n  \n  Error: Cannot find module '/Users/zohayr/Desktop/watch-tracker/.next/transform.js'\n      at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)\n      at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)\n      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)\n      at Module._load (node:internal/modules/cjs/loader:1242:25)\n      at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n      at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n      at node:internal/main/run_main_module:33:47 {\n    code: 'MODULE_NOT_FOUND',\n  }\n  \n  Node.js v24.14.0");
+
 }}),
-"[next]/internal/font/google/geist_mono_68a01160.js [app-rsc] (ecmascript)": (() => {{
+"[next]/internal/font/google/geist_mono_68a01160.js [app-rsc] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
 
-throw new Error("An error occurred while generating the chunk item [next]/internal/font/google/geist_mono_68a01160.js [app-rsc] (ecmascript)\n\nCaused by:\n- failed to parse [next]/internal/font/google/geist_mono_68a01160.js\n- Cell doesn't exist\n\nDebug info:\n- An error occurred while generating the chunk item [next]/internal/font/google/geist_mono_68a01160.js [app-rsc] (ecmascript)\n- Execution of *EcmascriptChunkItemContent::module_factory failed\n- Execution of *EcmascriptChunkItemContent::new failed\n- Execution of <EcmascriptModuleAsset as EcmascriptAnalyzable>::module_content failed\n- Execution of parse failed\n- failed to parse [next]/internal/font/google/geist_mono_68a01160.js\n- Cell doesn't exist");
-
+var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: require } = __turbopack_context__;
+{
+__turbopack_esm__({
+    "default": (()=>__TURBOPACK__default__export__)
+});
+var __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$geist_mono_68a01160$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__ = __turbopack_import__("[next]/internal/font/google/geist_mono_68a01160.module.css [app-client] (css module)");
+;
+const fontData = {
+    className: __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$geist_mono_68a01160$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].className,
+    style: {
+        fontFamily: "'Geist Mono'",
+        fontStyle: "normal"
+    }
+};
+if (__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$geist_mono_68a01160$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].variable != null) {
+    fontData.variable = __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$geist_mono_68a01160$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].variable;
+}
+const __TURBOPACK__default__export__ = fontData;
 }}),
 "[project]/components/Nav.tsx (client proxy) <module evaluation>": ((__turbopack_context__) => {
 "use strict";
@@ -174,9 +187,9 @@ __turbopack_export_namespace__(__turbopack_import__("[project]/app/layout.tsx [a
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, m: module, e: exports, t: require } = __turbopack_context__;
 {
-const e = new Error("Could not parse module '[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js'");
-e.code = 'MODULE_UNPARSEABLE';
-throw e;}}),
+"use strict";
+module.exports = __turbopack_require__("[project]/node_modules/next/dist/server/route-modules/app-page/module.compiled.js [app-rsc] (ecmascript)").vendored['react-rsc'].ReactJsxDevRuntime; //# sourceMappingURL=react-jsx-dev-runtime.js.map
+}}),
 "[project]/node_modules/next/dist/client/link.js (client proxy) <module evaluation>": (function(__turbopack_context__) {
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, m: module, e: exports, t: require } = __turbopack_context__;
@@ -191,15 +204,21 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 const { createClientModuleProxy } = __turbopack_require__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server-edge.js [app-rsc] (ecmascript)");
 __turbopack_export_namespace__(createClientModuleProxy("[project]/node_modules/next/dist/client/link.js"));
 }}),
-"[project]/node_modules/next/dist/client/link.js [app-rsc] (ecmascript)": (() => {{
+"[project]/node_modules/next/dist/client/link.js [app-rsc] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
 
-throw new Error("An error occurred while generating the chunk item [project]/node_modules/next/dist/client/link.js [app-rsc] (ecmascript)\n\nCaused by:\n- Cell doesn't exist\n\nDebug info:\n- An error occurred while generating the chunk item [project]/node_modules/next/dist/client/link.js [app-rsc] (ecmascript)\n- Execution of EcmascriptChunkItemContent::module_factory failed\n- Execution of *fileify_source_map failed\n- Execution of <ParseResultSourceMap as GenerateSourceMap>::generate_source_map failed\n- Cell doesn't exist");
-
+var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: require } = __turbopack_context__;
+{
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$link$2e$js__$28$client__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_import__("[project]/node_modules/next/dist/client/link.js (client proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$link$2e$js__$28$client__proxy$29$__ = __turbopack_import__("[project]/node_modules/next/dist/client/link.js (client proxy)");
+;
+__turbopack_export_namespace__(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$link$2e$js__$28$client__proxy$29$__);
 }}),
-"[project]/node_modules/next/link.js [app-rsc] (ecmascript)": (() => {{
+"[project]/node_modules/next/link.js [app-rsc] (ecmascript)": (function(__turbopack_context__) {
 
-throw new Error("An error occurred while generating the chunk item [project]/node_modules/next/link.js [app-rsc] (ecmascript)\n\nCaused by:\n- Cell doesn't exist\n\nDebug info:\n- An error occurred while generating the chunk item [project]/node_modules/next/link.js [app-rsc] (ecmascript)\n- Execution of EcmascriptChunkItemContent::module_factory failed\n- Execution of *fileify_source_map failed\n- Execution of <ParseResultSourceMap as GenerateSourceMap>::generate_source_map failed\n- Cell doesn't exist");
-
+var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, m: module, e: exports, t: require } = __turbopack_context__;
+{
+module.exports = __turbopack_require__("[project]/node_modules/next/dist/client/link.js [app-rsc] (ecmascript)");
 }}),
 
 };

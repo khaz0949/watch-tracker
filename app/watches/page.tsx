@@ -1,6 +1,8 @@
 import Breadcrumbs from "@/components/Breadcrumbs";
 import WatchesList from "@/components/WatchesList";
 
+export const dynamic = "force-dynamic";
+
 async function getWatches() {
   try {
     const res = await fetch(
