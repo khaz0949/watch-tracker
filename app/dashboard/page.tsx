@@ -10,6 +10,7 @@ import { getBrandLogoUrl, BRAND_LIST } from "@/lib/brands";
 import { getDashboardData } from "@/lib/dashboard-data";
 import { getWatchesFromDb } from "@/lib/watches";
 import type { PerformanceItem } from "@/components/ResalePerformanceChart";
+import Tooltip from "@/components/Tooltip";
 
 function groupWatchesByBrand(watches: { id: string; brand: string; [key: string]: unknown }[]) {
   const byBrand: Record<string, typeof watches> = {};
@@ -60,8 +61,8 @@ export default async function DashboardPage() {
           Overview of watch availability, prices, resale value, and retailer vs Chrono24.
         </p>
         {asOf && (
-          <p className="mt-1 text-xs text-[hsl(var(--muted-foreground))]">
-            Price data as of {asOf}
+          <p className="mt-2 text-sm font-medium text-[hsl(var(--muted-foreground))]">
+            Data last updated: {asOf}
           </p>
         )}
         {dataSource === "real" && (
@@ -96,7 +97,15 @@ export default async function DashboardPage() {
       </section>
 
       <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-[hsl(var(--foreground))]">Most in demand models</h2>
+        <h2 className="text-xl font-semibold text-[hsl(var(--foreground))]">
+          Most in demand models
+          {performanceMetric === "yoy" && (
+            <Tooltip text="Year-over-year %: average price change from one year to the next. Positive = prices rising." />
+          )}
+          {performanceMetric === "premium" && (
+            <Tooltip text="Chrono24 vs retail %: how much above (or below) benchmark retail the Chrono24 price trades." />
+          )}
+        </h2>
         <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
           {best.length > 0
             ? performanceMetric === "yoy"
@@ -123,7 +132,15 @@ export default async function DashboardPage() {
       </section>
 
       <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-[hsl(var(--foreground))]">Least in demand models</h2>
+        <h2 className="text-xl font-semibold text-[hsl(var(--foreground))]">
+          Least in demand models
+          {performanceMetric === "yoy" && (
+            <Tooltip text="Year-over-year %: average price change. Negative = prices falling." />
+          )}
+          {performanceMetric === "premium" && (
+            <Tooltip text="Chrono24 vs retail %: models trading below or with lowest premium over retail." />
+          )}
+        </h2>
         <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
           {worst.length > 0
             ? performanceMetric === "yoy"
@@ -244,6 +261,7 @@ export default async function DashboardPage() {
         <h2 className="flex items-center gap-2 text-lg font-semibold">
           <BarChart3 className="h-5 w-5 text-[hsl(var(--accent))]" />
           Retail vs Chrono24
+          <Tooltip text="Compares benchmark retail price to Chrono24 aftermarket. Green: trading above retail. Red: below retail." />
         </h2>
         <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
           Cheapest at retailers vs aftermarket. Green = premium, red = below retail.

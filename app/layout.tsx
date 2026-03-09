@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import MobileBottomNav from "@/components/MobileBottomNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,8 @@ export default function RootLayout({
             <Nav />
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-4 py-8 bg-[hsl(var(--background))]">{children}</main>
+        <main className="mx-auto max-w-6xl px-4 py-8 pb-20 md:pb-8 bg-[hsl(var(--background))]">{children}</main>
+        <MobileBottomNav />
       </body>
     </html>
   );

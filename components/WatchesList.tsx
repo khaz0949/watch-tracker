@@ -25,6 +25,7 @@ export default function WatchesList({
 }) {
   const [search, setSearch] = useState("");
   const [brandFilter, setBrandFilter] = useState<string>(initialBrand);
+  const [liveOnly, setLiveOnly] = useState(false);
 
   useEffect(() => {
     setBrandFilter(initialBrand);
@@ -46,11 +47,14 @@ export default function WatchesList({
     if (brandFilter) {
       list = list.filter((w) => w.brand === brandFilter);
     }
+    if (liveOnly) {
+      list = list.filter((w) => w.hasLiveData);
+    }
     if (sort === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === "brand") list = [...list].sort((a, b) => a.brand.localeCompare(b.brand));
     if (sort === "msrp") list = [...list].sort((a, b) => (a.msrp ?? 0) - (b.msrp ?? 0));
     return list;
-  }, [watches, search, brandFilter, sort]);
+  }, [watches, search, brandFilter, liveOnly, sort]);
 
   const byBrand = useMemo(() => {
     if (!groupByBrand) return null;
@@ -76,7 +80,7 @@ export default function WatchesList({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="sticky top-0 z-10 -mx-2 flex flex-col gap-3 bg-[hsl(var(--background))] px-2 py-2 sm:py-0 sm:relative sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 sm:max-w-xs">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[hsl(var(--muted-foreground))]" />
           <input
@@ -89,6 +93,15 @@ export default function WatchesList({
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <label className="flex cursor-pointer items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
+            <input
+              type="checkbox"
+              checked={liveOnly}
+              onChange={(e) => setLiveOnly(e.target.checked)}
+              className="rounded border-[hsl(var(--border))] text-[hsl(var(--accent))] focus:ring-[hsl(var(--accent))]"
+            />
+            Live data only
+          </label>
           <select
             value={brandFilter}
             onChange={(e) => setBrandFilter(e.target.value)}
