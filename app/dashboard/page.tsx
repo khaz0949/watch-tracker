@@ -55,8 +55,8 @@ export default async function DashboardPage() {
         ]}
       />
 
-      <header className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-6 py-6 shadow-sm sm:px-8">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+      <header className="rounded-2xl border border-[hsl(var(--border))] bg-white px-6 py-6 shadow-sm sm:px-8">
+        <h1 className="text-3xl font-bold tracking-tight text-[hsl(var(--foreground))]">Dashboard</h1>
         <p className="mt-1 text-[hsl(var(--muted-foreground))]">
           Overview of watch availability, prices, resale value, and retailer vs Chrono24.
         </p>
@@ -73,26 +73,26 @@ export default async function DashboardPage() {
       </header>
 
       <section className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
-          <div className="flex items-center gap-2 text-[hsl(var(--muted-foreground))]">
-            <Watch className="h-5 w-5" />
-            <span className="text-sm font-medium">Models tracked</span>
+        <div className="rounded-2xl border border-[hsl(var(--border))] bg-white p-6 shadow-sm transition hover:shadow-md">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[hsl(var(--accent))]/10">
+            <Watch className="h-6 w-6 text-[hsl(var(--accent))]" />
           </div>
-          <p className="mt-2 text-2xl font-semibold">{totalWatches}</p>
+          <p className="mt-4 text-3xl font-bold text-[hsl(var(--foreground))]">{totalWatches}</p>
+          <p className="mt-1 text-sm font-medium text-[hsl(var(--muted-foreground))]">Models tracked</p>
         </div>
-        <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
-          <div className="flex items-center gap-2 text-[hsl(var(--muted-foreground))]">
-            <TrendingUp className="h-5 w-5" />
-            <span className="text-sm font-medium">Price updates</span>
+        <div className="rounded-2xl border border-[hsl(var(--border))] bg-white p-6 shadow-sm transition hover:shadow-md">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10">
+            <TrendingUp className="h-6 w-6 text-emerald-600" />
           </div>
-          <p className="mt-2 text-2xl font-semibold">{recentCount} recent</p>
+          <p className="mt-4 text-3xl font-bold text-[hsl(var(--foreground))]">{recentCount}</p>
+          <p className="mt-1 text-sm font-medium text-[hsl(var(--muted-foreground))]">Recent price updates</p>
         </div>
-        <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
-          <div className="flex items-center gap-2 text-[hsl(var(--muted-foreground))]">
-            <Calendar className="h-5 w-5" />
-            <span className="text-sm font-medium">Launches & events</span>
+        <div className="rounded-2xl border border-[hsl(var(--border))] bg-white p-6 shadow-sm transition hover:shadow-md">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10">
+            <Calendar className="h-6 w-6 text-amber-600" />
           </div>
-          <p className="mt-2 text-2xl font-semibold">—</p>
+          <p className="mt-4 text-3xl font-bold text-[hsl(var(--foreground))]">—</p>
+          <p className="mt-1 text-sm font-medium text-[hsl(var(--muted-foreground))]">Launches & events</p>
         </div>
       </section>
 
@@ -180,14 +180,14 @@ export default async function DashboardPage() {
                 <li key={watch.id}>
                   <Link
                     href={`/watches/${watch.id}`}
-                    className="flex items-center gap-3 rounded-lg bg-[hsl(var(--muted))]/30 px-3 py-2.5 text-sm transition hover:bg-[hsl(var(--muted))]/50"
+                    className="flex items-center gap-3 rounded-xl border border-transparent bg-[hsl(var(--muted))]/20 px-4 py-3 text-sm transition hover:border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--muted))]/30"
                   >
                     <img
                       src={getBrandLogoUrl(watch.brand)}
                       alt=""
                       width={32}
                       height={32}
-                      className="h-8 w-8 shrink-0 rounded-md object-contain bg-white/80 p-0.5"
+                      className="h-8 w-8 shrink-0 rounded-lg object-contain bg-white p-0.5 shadow-sm"
                       referrerPolicy="no-referrer"
                     />
                     <span className="min-w-0 flex-1 font-medium truncate">
@@ -195,9 +195,9 @@ export default async function DashboardPage() {
                       {watch.reference ? ` · ${watch.reference}` : ""}
                     </span>
                     {item.hasLiveData && (
-                      <span className="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-800">Live</span>
+                      <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800">Live</span>
                     )}
-                    <span className="shrink-0 text-emerald-500 font-medium">+{item.yoyPercent.toFixed(1)}% avg YoY</span>
+                    <span className="shrink-0 font-semibold text-emerald-600">+{item.yoyPercent.toFixed(1)}%</span>
                   </Link>
                 </li>
               );
@@ -226,14 +226,14 @@ export default async function DashboardPage() {
                 <li key={watch.id}>
                   <Link
                     href={`/watches/${watch.id}`}
-                    className="flex items-center gap-3 rounded-lg bg-[hsl(var(--muted))]/30 px-3 py-2.5 text-sm transition hover:bg-[hsl(var(--muted))]/50"
+                    className="flex items-center gap-3 rounded-xl border border-transparent bg-[hsl(var(--muted))]/20 px-4 py-3 text-sm transition hover:border-red-200 hover:bg-[hsl(var(--muted))]/30"
                   >
                     <img
                       src={getBrandLogoUrl(watch.brand)}
                       alt=""
                       width={32}
                       height={32}
-                      className="h-8 w-8 shrink-0 rounded-md object-contain bg-white/80 p-0.5"
+                      className="h-8 w-8 shrink-0 rounded-lg object-contain bg-white p-0.5 shadow-sm"
                       referrerPolicy="no-referrer"
                     />
                     <span className="min-w-0 flex-1 font-medium truncate">
@@ -241,9 +241,9 @@ export default async function DashboardPage() {
                       {watch.reference ? ` · ${watch.reference}` : ""}
                     </span>
                     {item.hasLiveData && (
-                      <span className="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-800">Live</span>
+                      <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800">Live</span>
                     )}
-                    <span className="shrink-0 text-red-400 font-medium">{item.yoyPercent.toFixed(1)}% avg YoY</span>
+                    <span className="shrink-0 font-semibold text-red-500">{item.yoyPercent.toFixed(1)}%</span>
                   </Link>
                 </li>
               );

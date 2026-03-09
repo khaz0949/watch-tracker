@@ -28,15 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-[hsl(var(--background))]`}>
-        <header className="relative border-b border-[hsl(var(--border))] bg-white shadow-sm">
-          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-            <Link href="/" className="font-semibold text-lg tracking-tight shrink-0 text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent))] transition-colors">
-              Acquire Internal Dashboard Prototype
+        <header className="sticky top-0 z-30 border-b border-[hsl(var(--border))] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90 shadow-sm">
+          <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+            <Link href="/" className="font-bold text-lg tracking-tight shrink-0 text-[hsl(var(--foreground))] hover:text-[hsl(var(--accent))] transition-colors">
+              Acquire
             </Link>
             <Nav />
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-4 py-8 pb-20 md:pb-8 bg-[hsl(var(--background))]">{children}</main>
+        <main className="mx-auto max-w-6xl px-4 py-10 pb-24 md:pb-10 bg-[hsl(var(--background))]">{children}</main>
         <MobileBottomNav />
       </body>
     </html>

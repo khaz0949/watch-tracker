@@ -16,7 +16,7 @@ export default async function WatchesListPage({
   return (
     <div className="space-y-8">
       <Breadcrumbs items={[{ label: "How it works", href: "/" }, { label: "Watches" }]} />
-      <header className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-6 py-6 shadow-sm sm:px-8">
+      <header className="rounded-2xl border border-[hsl(var(--border))] bg-white px-6 py-6 shadow-sm sm:px-8">
         <h1 className="text-3xl font-bold tracking-tight">Watches</h1>
         <p className="mt-1 text-[hsl(var(--muted-foreground))]">
           All tracked models — retail and aftermarket prices, availability, launches. Filter by brand or search.

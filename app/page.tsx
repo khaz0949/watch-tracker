@@ -27,34 +27,33 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-14">
-      {/* Hero — Chrono24-style strip */}
-      <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-6 py-10 shadow-sm sm:px-10 sm:py-12">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-[hsl(var(--foreground))] sm:text-4xl">
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-gradient-to-br from-[hsl(var(--accent))]/5 via-white to-[hsl(var(--muted))]/30 px-6 py-12 shadow-sm sm:px-12 sm:py-16">
+        <div className="relative mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-[hsl(var(--foreground))] sm:text-4xl lg:text-5xl">
             Watch prices, demand & resale
           </h1>
-          <p className="mt-3 text-[hsl(var(--muted-foreground))] sm:text-lg">
-            Zayn, Sadiq and Zohayr&apos;s place for watch information, prices, demand, performance,
-            and news. Built around the brands that dominate global demand and aftermarket sales.
+          <p className="mt-4 text-base text-[hsl(var(--muted-foreground))] sm:text-lg">
+            Track prices, performance, and resale value across the brands that dominate global demand.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/watches"
-              className="inline-flex items-center rounded-lg bg-[hsl(var(--accent))] px-6 py-3 text-sm font-medium text-[hsl(var(--accent-foreground))] shadow-sm transition hover:bg-[hsl(var(--accent-hover))]"
+              className="inline-flex items-center rounded-xl bg-[hsl(var(--accent))] px-8 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[hsl(var(--accent-hover))] hover:shadow-lg hover:-translate-y-0.5"
             >
               Browse Watches
-              <ChevronRight className="ml-1 h-4 w-4" />
+              <ChevronRight className="ml-1.5 h-5 w-5" />
             </Link>
             <Link
               href="/dashboard"
-              className="inline-flex items-center rounded-lg border-2 border-[hsl(var(--border))] bg-white px-6 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition hover:border-[hsl(var(--accent))] hover:text-[hsl(var(--accent))]"
+              className="inline-flex items-center rounded-xl border-2 border-[hsl(var(--border))] bg-white px-8 py-3.5 text-sm font-semibold text-[hsl(var(--foreground))] transition hover:border-[hsl(var(--accent))] hover:text-[hsl(var(--accent))] hover:shadow-md"
             >
               See Dashboard
             </Link>
           </div>
           <Link
             href="/watches"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))]/30 px-4 py-2.5 text-sm text-[hsl(var(--muted-foreground))] transition hover:bg-[hsl(var(--muted))]/50 hover:text-[hsl(var(--foreground))]"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-[hsl(var(--border))] bg-white/80 px-5 py-2.5 text-sm font-medium text-[hsl(var(--muted-foreground))] shadow-sm transition hover:bg-white hover:text-[hsl(var(--foreground))] hover:border-[hsl(var(--accent))]/50"
           >
             <Search className="h-4 w-4" />
             Search all models
@@ -62,18 +61,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Brand strip — browse by brand */}
+      {/* Brand strip */}
       <section>
-        <h2 className="text-lg font-semibold text-[hsl(var(--foreground))]">Browse by brand</h2>
+        <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">Browse by brand</h2>
         <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
           Jump to watches from a specific brand.
         </p>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <div className="mt-5 flex flex-wrap items-center gap-3">
           {BRAND_LIST.map((brand) => (
             <Link
               key={brand}
               href={`/watches?brand=${encodeURIComponent(brand)}`}
-              className="flex items-center gap-2 rounded-xl border border-[hsl(var(--border))] bg-white px-4 py-3 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-md"
+              className="flex items-center gap-2.5 rounded-xl border border-[hsl(var(--border))] bg-white px-5 py-3.5 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-lg hover:-translate-y-0.5"
             >
               <img
                 src={getBrandLogoUrl(brand)}
@@ -90,7 +89,7 @@ export default async function HomePage() {
       {/* Most in demand preview */}
       <section>
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-[hsl(var(--foreground))]">Most in demand</h2>
+          <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">Most in demand</h2>
           <Link
             href="/dashboard"
             className="text-sm font-medium text-[hsl(var(--accent))] hover:underline"
@@ -109,7 +108,7 @@ export default async function HomePage() {
                 <li key={w.id}>
                   <Link
                     href={`/watches/${w.id}`}
-                    className="block rounded-xl border border-[hsl(var(--border))] bg-white p-4 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-md"
+                    className="block rounded-2xl border border-[hsl(var(--border))] bg-white p-5 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-lg hover:-translate-y-0.5"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2 min-w-0">
@@ -147,10 +146,10 @@ export default async function HomePage() {
       </section>
 
       {/* Market insight tiles */}
-      <section className="grid gap-4 sm:grid-cols-2">
+      <section className="grid gap-5 sm:grid-cols-2">
         <Link
           href="/dashboard"
-          className="flex items-start gap-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-md"
+          className="flex items-start gap-5 rounded-2xl border border-[hsl(var(--border))] bg-white p-6 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-lg hover:-translate-y-0.5"
         >
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[hsl(var(--accent))]/10">
             <BarChart3 className="h-6 w-6 text-[hsl(var(--accent))]" />
@@ -168,7 +167,7 @@ export default async function HomePage() {
         </Link>
         <Link
           href="/blog"
-          className="flex items-start gap-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-md"
+          className="flex items-start gap-5 rounded-2xl border border-[hsl(var(--border))] bg-white p-6 shadow-sm transition hover:border-[hsl(var(--accent))] hover:shadow-lg hover:-translate-y-0.5"
         >
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[hsl(var(--accent))]/10">
             <BookOpen className="h-6 w-6 text-[hsl(var(--accent))]" />
@@ -187,7 +186,7 @@ export default async function HomePage() {
       </section>
 
       {/* Brand history teaser */}
-      <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm">
+      <section className="rounded-2xl border border-[hsl(var(--border))] bg-white p-6 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[hsl(var(--muted))]/50">
@@ -210,9 +209,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* How it works — compact */}
+      {/* How it works */}
       <section>
-        <h2 className="text-lg font-semibold text-[hsl(var(--foreground))]">How it works</h2>
+        <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">How it works</h2>
         <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
           Each watch has a detail page with MSRP, launch date, price history, and retailer vs aftermarket.
           The dashboard ranks models by resale performance and compares retail vs Chrono24. We track{" "}
